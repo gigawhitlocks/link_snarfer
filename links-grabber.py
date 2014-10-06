@@ -1,3 +1,5 @@
+# -*- coding: utf_8 -*-
+
 import sqlite3
 import time
 import re
@@ -14,11 +16,11 @@ def follow(thefile):
 def save_url(db_conn, quote):
     links = re.findall(r'http\S+',quote)
     for link in links:
-        timestamp = quote.split("\t")[0]
-        speaker = quote.split()[2]
+        timestamp = unicode(quote.split("\t")[0])
+        speaker = unicode(quote.split()[2])
         c = db_conn.cursor()
         c.execute("INSERT INTO links (speaker, timestamp, link, full) VALUES (?,?,?,?)", 
-            (speaker, timestamp, link, quote))
+                  (speaker, timestamp, unicode(link), unicode(quote)))
 
     db_conn.commit()
 
